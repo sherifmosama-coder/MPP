@@ -47,7 +47,7 @@
           <div class="absolute w-44 h-44 bg-white/90 backdrop-blur-xl rounded-full shadow-inner flex justify-center items-center border border-white">
             
             <div class="absolute inset-0 pointer-events-none transform rotate-[0deg]">
-              <div class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[0deg] pointer-events-auto">
+              <div onclick="syncFromDial('Morning Login')" class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[0deg] pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-200 z-30">
                 <div id="icon-morning" class="text-amber-500 text-2xl drop-shadow-sm transition-all duration-500 flex justify-center items-center w-8 h-8 opacity-40">
                   <i class="bi bi-sunrise-fill relative z-10"></i>
                 </div>
@@ -55,7 +55,7 @@
             </div>
             
             <div class="absolute inset-0 pointer-events-none transform rotate-[72deg]">
-              <div class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[72deg] pointer-events-auto">
+              <div onclick="syncFromDial('Midday Cue')" class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[72deg] pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-200 z-30">
                 <div id="icon-midday" class="text-orange-500 text-2xl drop-shadow-sm transition-all duration-500 flex justify-center items-center w-8 h-8 opacity-40">
                   <i class="bi bi-sun-fill relative z-10"></i>
                 </div>
@@ -63,7 +63,7 @@
             </div>
             
             <div class="absolute inset-0 pointer-events-none transform rotate-[144deg]">
-              <div class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[144deg] pointer-events-auto">
+              <div onclick="syncFromDial('Afternoon Shift')" class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[144deg] pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-200 z-30">
                 <div id="icon-afternoon" class="text-rose-400 text-2xl drop-shadow-sm transition-all duration-500 flex justify-center items-center w-8 h-8 opacity-40">
                   <i class="bi bi-cup-hot-fill relative z-10"></i>
                 </div>
@@ -71,7 +71,7 @@
             </div>
             
             <div class="absolute inset-0 pointer-events-none transform rotate-[216deg]">
-              <div class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[216deg] pointer-events-auto">
+              <div onclick="syncFromDial('Evening Wind-Down')" class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[216deg] pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-200 z-30">
                 <div id="icon-evening" class="text-indigo-400 text-2xl drop-shadow-sm transition-all duration-500 flex justify-center items-center w-8 h-8 opacity-40">
                   <i class="bi bi-sunset-fill relative z-10"></i>
                 </div>
@@ -79,7 +79,7 @@
             </div>
             
             <div class="absolute inset-0 pointer-events-none transform rotate-[288deg]">
-              <div class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[288deg] pointer-events-auto">
+              <div onclick="syncFromDial('Night Closure')" class="absolute top-2 left-1/2 -translate-x-1/2 transform -rotate-[288deg] pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-200 z-30">
                 <div id="icon-night" class="text-slate-500 text-2xl drop-shadow-sm transition-all duration-500 flex justify-center items-center w-8 h-8 opacity-40">
                   <i class="bi bi-moon-stars-fill relative z-10"></i>
                 </div>
@@ -159,27 +159,30 @@
 
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">Activity</label>
-                <select name="activity" class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-3 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 cursor-pointer" required>
-                  <option value="Work">Work / Focus</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Social">Social</option>
-                  <option value="Rest">Rest / Break</option>
-                </select>
+                <label class="flex items-center gap-1.5 block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">
+                  <i class="bi bi-activity text-slate-400 text-sm"></i> Activity
+                </label>
+                <input type="text" name="activity" list="activityOptions" placeholder="Type or select..." class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-3 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 placeholder-slate-400 transition-all" required>
+                <datalist id="activityOptions"></datalist>
               </div>
               <div>
-                <label class="block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">Tags (Opt)</label>
-                <input type="text" name="tags" placeholder="e.g. Focused" class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-3 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 placeholder-slate-400">
+                <label class="flex items-center gap-1.5 block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">
+                  <i class="bi bi-tags-fill text-slate-400 text-sm"></i> Tags (Opt)
+                </label>
+                <input type="text" name="tags" list="tagOptions" placeholder="Type or select..." class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-3 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 placeholder-slate-400 transition-all">
+                <datalist id="tagOptions"></datalist>
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">Brief Note (Opt)</label>
-              <input type="text" name="notes" placeholder="One sentence max..." class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 placeholder-slate-400">
+              <label class="flex items-center gap-1.5 block text-xs font-bold mb-1 text-slate-600 uppercase tracking-wider">
+                <i class="bi bi-card-text text-slate-400 text-sm"></i> Brief Note (Opt)
+              </label>
+              <input type="text" name="notes" placeholder="One sentence max..." class="w-full border border-white/60 bg-white/50 backdrop-blur-sm rounded-xl px-4 py-3 focus:ring-2 focus:ring-slate-400 outline-none shadow-sm text-sm font-semibold text-slate-700 placeholder-slate-400 transition-all">
             </div>
 
             <button id="submitBtn" type="submit" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-4 px-4 rounded-xl shadow-lg transition duration-300 flex items-center justify-center gap-2 mt-2">
-              <i class="bi bi-floppy"></i> Save Alignment
+              <i class="bi bi-floppy"></i> Submit
             </button>
             
           </div>
@@ -192,6 +195,28 @@
   
 
     <script>
+      // Initialize Smart Droplists on Load
+      document.addEventListener("DOMContentLoaded", () => {
+        google.script.run.withSuccessHandler(populateDroplists).getUniqueOptions();
+      });
+
+      function populateDroplists(options) {
+        const actList = document.getElementById('activityOptions');
+        const tagList = document.getElementById('tagOptions');
+        
+        options.activities.forEach(item => {
+          let opt = document.createElement('option');
+          opt.value = item;
+          actList.appendChild(opt);
+        });
+        
+        options.tags.forEach(item => {
+          let opt = document.createElement('option');
+          opt.value = item;
+          tagList.appendChild(opt);
+        });
+      }
+
       // 24-Hour Dial & Theme Logic
       const segmentData = {
         "Morning Login": { angle: 0, theme: "from-amber-200", icon: "bi-sunrise-fill", id: "icon-morning" },
@@ -200,6 +225,16 @@
         "Evening Wind-Down": { angle: 216, theme: "from-indigo-300", icon: "bi-sunset-fill", id: "icon-evening" },
         "Night Closure": { angle: 288, theme: "from-slate-300", icon: "bi-moon-stars-fill", id: "icon-night" }
       };
+
+      // Bidirectional Sync: Dial updates Dropdown
+      function syncFromDial(segment) {
+        // 1. Update the hidden/visible Dropdown selection
+        const selectMenu = document.querySelector('select[name="timeSegment"]');
+        selectMenu.value = segment;
+        
+        // 2. Trigger the main visual rotation function
+        rotateDial(segment);
+      }
 
       function rotateDial(segment) {
         const selector = document.getElementById('dialSelector');
@@ -306,7 +341,7 @@
                 document.getElementById('moodVal').innerText = "5";
                 document.getElementById('energyVal').innerText = "5";
                 document.getElementById('stressVal').innerText = "5";
-                btn.innerHTML = '<i class="bi bi-floppy"></i> Save Entry';
+                btn.innerHTML = '<i class="bi bi-floppy"></i> Submit';
                 btn.classList.replace('bg-emerald-500', 'bg-primary');
                 btn.classList.remove('opacity-70', 'cursor-not-allowed');
                 btn.disabled = false;
@@ -325,7 +360,7 @@
         btn.innerHTML = `<i class="bi bi-exclamation-triangle-fill"></i> ${msg}`;
         btn.classList.replace('bg-primary', 'bg-rose-500');
         setTimeout(() => {
-          btn.innerHTML = '<i class="bi bi-floppy"></i> Save Entry';
+          btn.innerHTML = '<i class="bi bi-floppy"></i> Submit';
           btn.classList.replace('bg-rose-500', 'bg-primary');
           btn.classList.remove('opacity-70', 'cursor-not-allowed');
           btn.disabled = false;
