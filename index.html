@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <base target="_top">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -40,7 +41,14 @@
       </div>
 
       <div class="relative z-10">
-      
+        
+        <div class="flex justify-center mb-6">
+          <div class="px-4 py-1.5 rounded-full bg-white/40 border border-white/60 shadow-sm backdrop-blur-md flex items-center gap-2 text-slate-600 font-bold text-sm tracking-wide">
+            <i class="bi bi-clock-history"></i>
+            <span id="liveClock">--:-- --</span>
+          </div>
+        </div>
+        
       <div class="flex justify-center mb-6">
         <div class="relative w-48 h-48 rounded-full shadow-lg flex justify-center items-center" style="background: conic-gradient(from -36deg, #fcd34d 0 72deg, #fb923c 72deg 144deg, #fb7185 144deg 216deg, #818cf8 216deg 288deg, #94a3b8 288deg 360deg);">
           
@@ -195,8 +203,26 @@
   
 
     <script>
-      // Initialize Smart Droplists on Load
+      // Live Clock Logic
+      function startClock() {
+        const clockElement = document.getElementById('liveClock');
+        setInterval(() => {
+          const now = new Date();
+          let hours = now.getHours();
+          let minutes = now.getMinutes();
+          const ampm = hours >= 12 ? 'PM' : 'AM';
+          
+          hours = hours % 12;
+          hours = hours ? hours : 12; // the hour '0' should be '12'
+          minutes = minutes < 10 ? '0' + minutes : minutes;
+          
+          clockElement.innerText = `${hours}:${minutes} ${ampm}`;
+        }, 1000);
+      }
+
+      // Initialize Smart Droplists & Clock on Load
       document.addEventListener("DOMContentLoaded", () => {
+        startClock(); // Start the live ticking
         google.script.run.withSuccessHandler(populateDroplists).getUniqueOptions();
       });
 
