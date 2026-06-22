@@ -9,7 +9,7 @@ function doGet() {
 // 2. Process the data sent from the HTML form
 function processForm(formData) {
   try {
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Logs");
     const timestamp = new Date();
     
     // Convert string inputs to numbers for math calculations
@@ -50,4 +50,37 @@ function processForm(formData) {
   } catch (error) {
     return "Error: " + error.toString();
   }
+}
+
+// Fetch unique activities and tags directly from your historical sheet data
+function getUniqueOptions() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Logs");
+  const data = sheet.getDataRange().getValues();
+  
+  // Default base options
+  let activities = new Set(["Work / Focus", "Admin", "Social", "Rest / Break"]);
+  let tags = new Set();
+  
+  // Skip row 0 (headers), scan history for previously used inputs
+  for (let i = 1; i < data.length; i++) {
+    const act = data[i][5]; // Column F (Activity)
+    const tagString = data[i][6]; // Column G (Tags)
+    
+    if (act && act.toString().trim() !== "") {
+      activities.add(act.toString().trim());
+    }
+    
+    if (tagString) {
+      // Split tags by comma in case user enters multiple
+      let rowTags = tagString.toString().split(',');
+      rowTags.forEach(t => {
+        if(t.trim() !== "") tags.add(t.trim());
+      });
+    }
+  }
+  
+  return {
+    activities: Array.from(activities).sort(),
+    tags: Array.from(tags).sort()
+  };
 }
